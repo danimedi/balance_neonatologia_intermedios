@@ -1,0 +1,12 @@
+PESO AL NACER: {peso_nacer} g // PESO AYER: {peso_ayer} g // PESO HOY: {peso_hoy} g
+DELTA PESO: {delta_peso} g // DELTA PESO AL NACER: {delta_peso_nacer * 100}%
+
+BALANCE 24 HORAS: {balance} cc
+INGRESOS (24 HORAS): {total_ingresos} cc
+= EV {ingreso_endovenoso} + TTO {ingreso_tratamiento} + VO {ingreso_via_oral}
+EGRESOS (24 HORAS): {total_egresos} cc
+= DEPOSICIONES {egreso_deposiciones} + DIURESIS {egreso_diuresis_24} + RESIDUOS + PÉRDIDAS INSENSIBLES {perdidas_insensibles}
+
+VOLUMEN TOTAL EFECTIVO: {volumen_total_efectivo} cc
+VÍA ORAL EFECTIVA: {via_oral_efectiva} cc
+FLUJO URINARIO (cc/kg) EN 24 HORAS {diuresis_flujo_24h} // EN 12 HORAS {diuresis_flujo_12h} // EN 6 HORAS {diuresis_flujo_06h}
