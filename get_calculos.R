@@ -44,13 +44,13 @@ get_calculos <- function(paciente, fecha = today()) {
     summarize(sum_all = rowSums(.)) %>%
     simplify()
   
-  get_perdidas_insensibles <- function(peso_hoy, peso_nacer) {
-    # Peso por usar
-    if (peso_hoy < peso_nacer) {
-      peso <- peso_nacer
-    } else {
-      peso <- peso_hoy
-    }
+  if (peso_hoy < peso_nacer) {
+    peso_x <- peso_nacer
+  } else {
+    peso_x <- peso_hoy
+  }
+  
+  get_perdidas_insensibles <- function(peso) {
     # Constante
     if (peso < 750) {
       k <- 2.5
@@ -68,7 +68,7 @@ get_calculos <- function(paciente, fecha = today()) {
     return(peso * 24 * k)
   }
   
-  perdidas_insensibles <- get_perdidas_insensibles(peso_hoy, peso_nacer) / 1000
+  perdidas_insensibles <- get_perdidas_insensibles(peso_x) / 1000
   
   total_egresos <- fila_ayer %>%
     select(egreso_deposiciones, egreso_diuresis_24, egreso_residuos) %>%
@@ -78,21 +78,17 @@ get_calculos <- function(paciente, fecha = today()) {
   
   balance <- total_ingresos - total_egresos
   
-  if (peso_hoy < peso_nacer) {
-    volumen_total_efectivo <- total_ingresos / peso_nacer * 1000
-  } else {
-    volumen_total_efectivo <- total_ingresos / peso_hoy * 1000
-  }
+  volumen_total_efectivo <- total_ingresos / peso_x * 1000
   
   via_oral_efectiva <- fila_ayer %>%
-    summarize(result = ingreso_via_oral / peso_hoy * 1000) %>%
+    summarize(result = ingreso_via_oral / peso_x * 1000) %>%
     simplify()
   
   flujo_urinario <- fila_ayer %>%
     mutate(
-      flujo_24h = egreso_diuresis_24 / peso_hoy * 1000 / 24,
-      flujo_12h = egreso_diuresis_12 / peso_hoy * 1000 / 12,
-      flujo_06h = egreso_diuresis_06 / peso_hoy * 1000 / 6,
+      flujo_24h = egreso_diuresis_24 / peso_x * 1000 / 24,
+      flujo_12h = egreso_diuresis_12 / peso_x * 1000 / 12,
+      flujo_06h = egreso_diuresis_06 / peso_x * 1000 / 6,
       .keep = "none"
     )
   
