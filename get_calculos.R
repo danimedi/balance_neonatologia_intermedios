@@ -69,10 +69,12 @@ get_calculos <- function(paciente, fecha = today()) {
   }
   
   perdidas_insensibles <- get_perdidas_insensibles(peso_hoy, peso_nacer) / 1000
+  
   total_egresos <- fila_ayer %>%
     select(egreso_deposiciones, egreso_diuresis_24, egreso_residuos) %>%
     summarize(sum_all = rowSums(.)) %>%
     simplify()
+  total_egresos <- total_egresos + perdidas_insensibles
   
   balance <- total_ingresos - total_egresos
   

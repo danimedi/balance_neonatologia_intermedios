@@ -28,7 +28,7 @@ EGRESOS (24 HORAS): {result$total_egresos} cc
 = DEPOSICIONES {result$egreso_deposiciones} + DIURESIS {result$egreso_diuresis_24} + RESIDUOS {result$egreso_residuos} + PÉRDIDAS INSENSIBLES {result$perdidas_insensibles}
 
 VOLUMEN TOTAL EFECTIVO: {result$volumen_total_efectivo} cc/kg
-VÍA ORAL EFECTIVA: {round(result$via_oral_efectiva, 2)} cc/kg
-FLUJO URINARIO (cc/kg) EN 24 HORAS {round(result$diuresis_flujo_24h, 2)} // EN 12 HORAS {round(result$diuresis_flujo_12h, 2)} // EN 6 HORAS {round(result$diuresis_flujo_06h, 2)}"
+VÍA ORAL EFECTIVA: {result$via_oral_efectiva} cc/kg
+FLUJO URINARIO (cc/kg) EN 24 HORAS {result$diuresis_flujo_24h} // EN 12 HORAS {result$diuresis_flujo_12h} // EN 6 HORAS {result$diuresis_flujo_06h}"
   )
 }
