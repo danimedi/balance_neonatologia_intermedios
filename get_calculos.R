@@ -20,7 +20,7 @@ datos <- read_excel("data.xlsx")
 #' @export
 #'
 #' @examples
-#' get_calculos("larico", fecha = as_date("2023-07-03"))
+#' get_calculos("corbacho", fecha = as_date("2023-07-03"))
 #' 
 get_calculos <- function(paciente, fecha = today()) {
   

@@ -13,7 +13,7 @@ library(glue)
 #' @export
 #'
 #' @examples
-#' get_calculos_text("larico", fecha = as_date("2023-07-03"))
+#' get_calculos_text("corbacho", fecha = as_date("2023-07-03"))
 #' 
 get_calculos_text <- function(paciente, fecha = today()) {
   result <- get_calculos(paciente, fecha)
