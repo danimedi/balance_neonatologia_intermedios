@@ -1,9 +1,5 @@
 library(lubridate)
-library(readxl)
 library(dplyr)
-
-# This is the data where all the information comes from
-datos <- read_excel("data.xlsx")
 
 #' Get the values we need to include in the daily notes of the newborns at the
 #' intensive care unit of neonatology
@@ -14,18 +10,20 @@ datos <- read_excel("data.xlsx")
 #' @param paciente Name of the patient, used to find the data in the data set.
 #' @param fecha Date of the note we want to make (it uses the values of the
 #'   previous day for most of the variables).
+#' @param db Data base that contains the data needed to perform the calculations.
 #'
 #' @return A list containing values of different variables that are useful to
 #'   make the daily notes of the patients
 #' @export
 #'
 #' @examples
-#' get_calculos("corbacho", fecha = as_date("2023-07-03"))
+#' datos <- read_excel("data.xlsx")
+#' get_calculos(datos, "corbacho", fecha = as_date("2023-07-03"))
 #' 
-get_calculos <- function(paciente, fecha = today()) {
+get_calculos <- function(db, paciente, fecha = today()) {
   
-  fila_hoy <- datos[datos$paciente == paciente & datos$fecha == fecha, ]
-  fila_ayer <- datos[datos$paciente == paciente & datos$fecha == fecha - 1, ]
+  fila_hoy <- db[db$paciente == paciente & db$fecha == fecha, ]
+  fila_ayer <- db[db$paciente == paciente & db$fecha == fecha - 1, ]
   
   simplify <- function (x) {
     unname(unlist(x))

@@ -13,10 +13,11 @@ library(glue)
 #' @export
 #'
 #' @examples
-#' get_calculos_text("corbacho", fecha = as_date("2023-07-03"))
+#' datos <- read_excel("data.xlsx")
+#' get_calculos_text(datos, "corbacho", fecha = as_date("2023-07-03"))
 #' 
-get_calculos_text <- function(paciente, fecha = today()) {
-  result <- get_calculos(paciente, fecha)
+get_calculos_text <- function(db, paciente, fecha = today()) {
+  result <- get_calculos(db, paciente, fecha)
   glue(
     "PESO AL NACER: {result$peso_nacer} g // PESO AYER: {result$peso_ayer} g // PESO HOY: {result$peso_hoy} g
 DELTA PESO: {result$delta_peso} g // DELTA PESO AL NACER: {result$delta_peso_nacer * 100}%
