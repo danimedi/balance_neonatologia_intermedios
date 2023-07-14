@@ -1,5 +1,4 @@
 library(lubridate)
-library(dplyr)
 
 #' Get the values we need to include in the daily notes of the newborns at the
 #' intensive care unit of neonatology
@@ -21,26 +20,19 @@ library(dplyr)
 #' get_calculos(datos, "corbacho", fecha = as_date("2023-07-03"))
 #' 
 get_calculos <- function(db, paciente, fecha = today()) {
-  
   fila_hoy <- db[db$paciente == paciente & db$fecha == fecha, ]
   fila_ayer <- db[db$paciente == paciente & db$fecha == fecha - 1, ]
   
-  simplify <- function (x) {
-    unname(unlist(x))
-  }
-  
-  ingresos_y_egresos <- fila_ayer %>%
-    select(starts_with("ingreso"), starts_with("egreso"))
-  peso_nacer <- select(fila_hoy, peso_nacer) %>% simplify()
-  peso_hoy <- select(fila_hoy, peso) %>% simplify()
-  peso_ayer <- select(fila_ayer, peso) %>% simplify()
+  i <- startsWith(names(db), "ingreso") | startsWith(names(db), "egreso")
+  ingresos_y_egresos <- fila_ayer[,i]
+  peso_nacer <- fila_hoy$peso_nacer
+  peso_hoy <- fila_hoy$peso
+  peso_ayer <- fila_ayer$peso
   delta_peso <- peso_hoy - peso_ayer
   delta_peso_nacer <- (peso_hoy - peso_nacer) / peso_nacer
   
-  total_ingresos <- fila_ayer %>%
-    select(starts_with("ingreso")) %>%
-    summarize(sum_all = rowSums(.)) %>%
-    simplify()
+  i <- startsWith(names(fila_ayer), "ingreso")
+  total_ingresos <- rowSums(fila_ayer[,i])
   
   if (peso_hoy < peso_nacer) {
     peso_x <- peso_nacer
@@ -68,27 +60,23 @@ get_calculos <- function(db, paciente, fecha = today()) {
   
   perdidas_insensibles <- get_perdidas_insensibles(peso_x) / 1000
   
-  total_egresos <- fila_ayer %>%
-    select(egreso_deposiciones, egreso_diuresis_24, egreso_residuos) %>%
-    summarize(sum_all = rowSums(.)) %>%
-    simplify()
+  i <- c("egreso_deposiciones", "egreso_diuresis_24", "egreso_residuos")
+  total_egresos <- rowSums(fila_ayer[, i])
   total_egresos <- total_egresos + perdidas_insensibles
   
   balance <- total_ingresos - total_egresos
   
   volumen_total_efectivo <- total_ingresos / peso_x * 1000
   
-  via_oral_efectiva <- fila_ayer %>%
-    summarize(result = ingreso_via_oral / peso_x * 1000) %>%
-    simplify()
+  via_oral_efectiva <- fila_ayer$ingreso_via_oral / peso_x * 1000
   
-  flujo_urinario <- fila_ayer %>%
-    mutate(
-      flujo_24h = egreso_diuresis_24 / peso_x * 1000 / 24,
-      flujo_12h = egreso_diuresis_12 / peso_x * 1000 / 12,
-      flujo_06h = egreso_diuresis_06 / peso_x * 1000 / 6,
-      .keep = "none"
-    )
+  get_flujo_urinario <- function(egreso_diuresis, peso, horas) {
+    egreso_diuresis / peso * 1000 / horas
+  }
+  
+  flujo_urinario_24h <- get_flujo_urinario(fila_ayer$egreso_diuresis_24, peso_x, 24)
+  flujo_urinario_12h <- get_flujo_urinario(fila_ayer$egreso_diuresis_12, peso_x, 12)
+  flujo_urinario_06h <- get_flujo_urinario(fila_ayer$egreso_diuresis_06, peso_x, 06)
   
   list(
     ingreso_endovenoso = ingresos_y_egresos$ingreso_endovenoso,
@@ -108,8 +96,8 @@ get_calculos <- function(db, paciente, fecha = today()) {
     balance = balance,
     volumen_total_efectivo = volumen_total_efectivo,
     via_oral_efectiva = via_oral_efectiva,
-    diuresis_flujo_24h = flujo_urinario$flujo_24h,
-    diuresis_flujo_12h = flujo_urinario$flujo_12h,
-    diuresis_flujo_06h = flujo_urinario$flujo_06h
+    diuresis_flujo_24h = flujo_urinario_24h,
+    diuresis_flujo_12h = flujo_urinario_12h,
+    diuresis_flujo_06h = flujo_urinario_06h
   )
 }
