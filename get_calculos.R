@@ -20,6 +20,10 @@ library(lubridate)
 #' get_calculos(datos, "corbacho", fecha = as_date("2023-07-03"))
 #' 
 get_calculos <- function(db, paciente, fecha = today()) {
+  
+  i <- is.na(db$paciente)
+  db <- db[!i, ]
+  
   fila_hoy <- db[db$paciente == paciente & db$fecha == fecha, ]
   fila_ayer <- db[db$paciente == paciente & db$fecha == fecha - 1, ]
   
