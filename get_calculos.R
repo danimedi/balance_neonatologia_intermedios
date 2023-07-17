@@ -1,5 +1,3 @@
-library(lubridate)
-
 #' Get the values we need to include in the daily notes of the newborns at the
 #' intensive care unit of neonatology
 #' 
@@ -19,7 +17,7 @@ library(lubridate)
 #' datos <- read_excel("data.xlsx")
 #' get_calculos(datos, "corbacho", fecha = as_date("2023-07-03"))
 #' 
-get_calculos <- function(db, paciente, fecha = today()) {
+get_calculos <- function(db, paciente, fecha = Sys.Date()) {
   
   i <- is.na(db$paciente)
   db <- db[!i, ]

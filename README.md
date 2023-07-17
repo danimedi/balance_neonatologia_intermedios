@@ -8,10 +8,10 @@ Pronto grabaré un video (espero) explicando cómo usar este programa.
 
 Lo primero es descargar las cosas necesarias. En realidad, lo único estrictamente necesario es contar con el lenguaje de programación / programa llamado "R". Por aquí dejo un [link](https://www.r-project.org/). Sin embargo, considero que es conveniente tener instalado además [RStudio](https://posit.co/download/rstudio-desktop/) (para poder usar R de forma más interactiva) y [Git](https://git-scm.com/) (para poder descargar el código, actualizar el código si hay cambios, proponer cambios, reportar bugs, etc.).
 
-También es necesario descargar algunos paquetes: 'lubridate', 'purrr', 'glue', 'readxl'. Los cuales pueden instalarse de la siguiente manera:
+También es necesario descargar algunos paquetes: 'purrr', 'glue', 'readxl'. Los cuales pueden instalarse de la siguiente manera:
 
 ``` r
-install.packages(c("lubridate", "purrr", "glue", "readxl"))
+install.packages(c("purrr", "glue", "readxl"))
 ```
 
 ## ¿Alguna consulta o problema?

@@ -1,4 +1,3 @@
-library(lubridate)
 library(purrr)
 
 #' Get the results of the balance calculations for all the patients as text
@@ -17,7 +16,7 @@ library(purrr)
 #' @examples
 #' datos <- read_excel("data.xlsx")
 #' get_all_calculos(datos, fecha = as_date("2023-07-03"))
-get_all_calculos <- function(db, fecha = today()) {
+get_all_calculos <- function(db, fecha = Sys.Date()) {
   pacientes_hoy <- db[db$fecha == fecha & !is.na(db$peso), "paciente"]
   pacientes_hoy <- unlist(unique(pacientes_hoy), use.names = FALSE)
   res <- map_chr(pacientes_hoy, function(paciente) get_calculos_text(db, paciente, fecha))
