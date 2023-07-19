@@ -14,6 +14,14 @@ install.packages(c("purrr", "glue", "readxl"))
 
 Con esto, estaríamos listos.
 
+## Si estamos en la computadora del la UCIN 4 (HNERM) ...
+
+Ya está todo instalado. Estoy dejando un acceso directo en el escritorio a la carpeta de este programa:
+
+![](images/screenshot_desktop.png)
+
+La carpeta está en "Documentos".
+
 ## Tutorial
 
 ### 1. Llenando datos
@@ -28,7 +36,7 @@ Una vez tengamos los datos en el Excel, ejecutar el código ...
 
 El código puede modificarse a nuestro antojo. Incluso si no sabemos cómo programar con R, podemos realizar algunos cambios en el código. Por ejemplo, podemos cambiar la plantilla con la cual estamos obteniendo los datos ...
 
-***
+------------------------------------------------------------------------
 
 ## ¿Alguna consulta o problema?
 
