@@ -21,6 +21,7 @@ get_calculos <- function(db, paciente, fecha = Sys.Date()) {
   
   i <- is.na(db$paciente)
   db <- db[!i, ]
+  db$fecha <- as.Date(db$fecha)
   
   fila_hoy <- db[db$paciente == paciente & db$fecha == fecha, ]
   fila_ayer <- db[db$paciente == paciente & db$fecha == fecha - 1, ]
