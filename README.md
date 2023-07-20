@@ -30,6 +30,12 @@ La carpeta está en "Documentos".
 
 <https://github.com/danimedi/balance_neonatologia_intermedios/assets/71237804/fbcdc046-eb2b-483f-8eb3-1b5af03f2490>
 
+## ¿Cómo funciona?
+
+En realidad es un programa simple que usa diferentes fórmulas aprendidas en neonatología para el cálculo de diferentes parámetros que se usan para evaluar el balance hídrico diario en los neonatos.
+
+Las fórmulas utilizadas para los balances están incluidas en la función `get_calculos()`, ubicada en el archivo con el mismo nombre ('get_calculos.R').
+
 ## ¿Alguna consulta o problema?
 
 Si tienen alguna consulta, pueden escribirme a mi correo: [danielmedinaneira555\@gmail.com](mailto:danielmedinaneira555@gmail.com). Mi nombre es Daniel Medina, soy interno de medicina (y creador de este programa).
