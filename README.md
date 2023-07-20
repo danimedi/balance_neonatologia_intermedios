@@ -24,6 +24,8 @@ La carpeta está en "Documentos".
 
 ## Tutorial
 
+https://github.com/danimedi/balance_neonatologia_intermedios/assets/71237804/fbcdc046-eb2b-483f-8eb3-1b5af03f2490
+
 ### 1. Llenando datos
 
 Los datos se llenan en el Excel que está incluido en la carpeta. Llenar los datos de la siguiente forma ...
