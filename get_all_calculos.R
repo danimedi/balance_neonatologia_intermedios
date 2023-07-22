@@ -20,6 +20,7 @@ get_all_calculos <- function(db, fecha = Sys.Date()) {
   db$fecha <- as.Date(db$fecha)
   pacientes_hoy <- db[db$fecha == fecha & !is.na(db$peso), "paciente"]
   pacientes_hoy <- unlist(unique(pacientes_hoy), use.names = FALSE)
+  safe_get_calculos_text <- possibly(get_calculos_text, otherwise = "ERROR")
   res <- map_chr(pacientes_hoy, function(paciente) get_calculos_text(db, paciente, fecha))
   res <- paste0("PACIENTE: ", pacientes_hoy, "\n", res)
   res <- paste0(res, collapse = "\n\n\n\n")

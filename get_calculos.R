@@ -18,10 +18,13 @@
 #' get_calculos(datos, "corbacho", fecha = as_date("2023-07-03"))
 #' 
 get_calculos <- function(db, paciente, fecha = Sys.Date()) {
+  paciente <- gsub(" ", "", tolower(paciente))
   
   i <- is.na(db$paciente)
   db <- db[!i, ]
   db$fecha <- as.Date(db$fecha)
+  db$paciente <- tolower(db$paciente)
+  db$paciente <- gsub(" ", "", db$paciente)
   
   fila_hoy <- db[db$paciente == paciente & db$fecha == fecha, ]
   fila_ayer <- db[db$paciente == paciente & db$fecha == fecha - 1, ]
