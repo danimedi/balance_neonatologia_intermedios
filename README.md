@@ -13,7 +13,7 @@ El primer paso es descargar los programas necesarios. Estos son:
 Una vez tengamos descargado R debemos instalar algunos paquetes de la siguiente manera:
 
 ``` r
-install.packages(c("purrr", "glue", "readxl"))
+install.packages(c("glue", "readxl"))
 ```
 
 Con esto, estaríamos listos.
